@@ -1,27 +1,21 @@
-with "code.txt" as file:
-    CODE = file.read()
-
-TABS = True
-
-if TABS:
-    INDENT = "\t"
-else:
-    INDENT = "  "
-
-
 def auto_indent(cd):
     """ (str) => (str)
-    Takes a string of characters without whitespace, and correctly indents it.
+    Takes a string of characters without any tabs and newlines, and correctly indents it.
     :return str:
     """
-    clean = "".join("".join(cd.split("\n")).split("\t"))
+    TABS = True
+
+    if TABS:
+        INDENT = "\t"
+    else:
+        INDENT = "  "
 
     formatted = ""
 
     # keeps track of indent level
     indent_level = 0
 
-    for i, char in enumerate(clean):
+    for i, char in enumerate(cd):
         # TODO: Recognize semicolons in for blocks
         if char == ";":
             # insert newline after semicolon and appropriate indentation
@@ -49,5 +43,8 @@ def auto_indent(cd):
 
 
 if __name__ == "__main__":
+    with open("js_auto_indent/code.txt", "r") as file:
+        # removes all tabs and newlines
+        CODE = "".join(("".join(file.read().split("\t"))).split("\n"))
     complete = auto_indent(CODE)
     print(complete)

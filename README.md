@@ -12,5 +12,3 @@ This is a python script that can convert not very readable website code into mor
 * After every left bracket ("{"), there should be a newline ("\n") and every following line should be indented by a level ("\t" or two spaces " ")
 * Before every right bracket ("}"), there should be a new line ("\n") and every following line should be dedented by a level
 * After every right bracket ("}"), there should be a newline ("\n")
-
-Let's try it out!
