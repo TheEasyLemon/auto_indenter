@@ -1,8 +1,16 @@
+import re
+
+
 def auto_indent(cd):
     """ (str) => (str)
     Takes a string of characters without any tabs and newlines, and correctly indents it.
     :return str:
     """
+    # removes all tabs and newlines
+    no_tabs = "".join(cd.split("\t"))
+    no_newlines = "".join(no_tabs.split("\n"))
+    start = re.sub(r"\s{2,}", "", no_newlines)
+
     TABS = True
 
     if TABS:
@@ -15,7 +23,7 @@ def auto_indent(cd):
     # keeps track of indent level
     indent_level = 0
 
-    for i, char in enumerate(cd):
+    for i, char in enumerate(start):
         # TODO: Recognize semicolons in for blocks
         if char == ";":
             # insert newline after semicolon and appropriate indentation
@@ -44,7 +52,6 @@ def auto_indent(cd):
 
 if __name__ == "__main__":
     with open("js_auto_indent/code.txt", "r") as file:
-        # removes all tabs and newlines
-        CODE = "".join(("".join(file.read().split("\t"))).split("\n"))
+        CODE = file.read()
     complete = auto_indent(CODE)
     print(complete)
