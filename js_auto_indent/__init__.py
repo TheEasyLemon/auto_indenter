@@ -22,10 +22,18 @@ def auto_indent(cd):
 
     # keeps track of indent level
     indent_level = 0
+    # keeps track of whether or not we're in a for block
+    in_for = False
 
     for i, char in enumerate(start):
-        # TODO: Recognize semicolons in for blocks
-        if char == ";":
+        # recognize the starting of for blocks
+        if char == "f" and start[i:i+4] == "for(":
+            in_for = True
+        # recognize ending of for blocks
+        if char == ")" and in_for:
+            in_for = False
+
+        if char == ";" and not in_for:
             # insert newline after semicolon and appropriate indentation
             formatted += char
             formatted += ("\n" + INDENT * indent_level)
@@ -34,7 +42,7 @@ def auto_indent(cd):
             indent_level += 1
             # insert newline after left bracket
             formatted += char
-            formatted += "\n" + INDENT * indent_level
+            formatted += " \n" + INDENT * indent_level
             continue
         if char == "}":
             indent_level -= 1
@@ -42,7 +50,10 @@ def auto_indent(cd):
             # insert newline before and after right bracket
             formatted += "\n" + INDENT * indent_level
             formatted += char
-            formatted += "\n" + INDENT * indent_level
+
+            # If there is a right paren or semicolon after, don't make another newline
+            if start[i + 1] != ")" and start[i + 1] != ";":
+                formatted += "\n" + INDENT * indent_level
             continue
 
         formatted += char
@@ -51,7 +62,7 @@ def auto_indent(cd):
 
 
 if __name__ == "__main__":
-    with open("js_auto_indent/code.txt", "r") as file:
+    with open("code.txt", "r") as file:
         CODE = file.read()
     complete = auto_indent(CODE)
     print(complete)
