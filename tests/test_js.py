@@ -26,7 +26,7 @@ class MyTestCase(unittest.TestCase):
         """
 
         test_strs = {
-            "for(var e=0;e<5;e++){console.log(e)}": "for(var e=0;e<5;e++){\n\tconsole.log(e)\n}\n"
+            "for(var e=0;e<5;e++){console.log(e)}": "for(var e=0;e<5;e++) {\n\tconsole.log(e)\n}\n"
         }
 
         for bef, aft in test_strs.items():
