@@ -3,7 +3,7 @@ import re
 
 def auto_indent(cd):
     """ (str) => (str)
-    Takes a string of characters without any tabs and newlines, and correctly indents it.
+    Takes a string of JS code, and correctly indents it.
     :return str:
     """
     # removes all tabs and newlines
@@ -82,5 +82,5 @@ def auto_indent(cd):
 if __name__ == "__main__":
     with open("code.txt", "r") as file:
         CODE = file.read()
-    complete = auto_indent(CODE)
+    complete = auto_indent("for(var e=0;e<5;e++){console.log(e)}")
     print(complete)
