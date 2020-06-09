@@ -19,5 +19,15 @@ After some more consideration, there are some more rules that need to be followe
 * There should be a space before every left bracket.
 * We also need to be able to tell if we're in a case block, and properly indent/dedent
 
-
 I think that's it!
+
+### Python
+Ok, that was fun, but you know what's even more fun? Turning Python into a bracket-style programming language.
+It's a silly idea, but a lot of people complain that it's an "offside rule" language, so why don't we fix that?
+
+Here's how we do it:
+* Every newline ("\n") should be replaced with a semicolon
+* Every colon probably means we should create a curly bracket block? Maybe?
+
+I think that should get us started. Good thing we don't have to worry about switch statements!
+
