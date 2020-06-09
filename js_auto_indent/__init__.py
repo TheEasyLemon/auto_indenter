@@ -1,23 +1,31 @@
 import re
+INDENT = "\t"
+
+
+def format_code(cd):
+    """(str) => (str)
+    Takes a string of JS code and removes all the tabs, newlines,
+    and spaces (except for single spaces)
+    :param cd:
+    :return:
+    """
+    no_tabs = "".join(cd.split("\t"))
+    no_newlines = "".join(no_tabs.split("\n"))
+    no_spaces = re.sub(r"\s{2,}", "", no_newlines)
+
+    return no_spaces
 
 
 def auto_indent(cd):
     """ (str) => (str)
-    Takes a string of JS code, and correctly indents it.
+    Takes a string of JS code and correctly indents it.
+    :param cd:
     :return str:
     """
     # removes all tabs and newlines
-    no_tabs = "".join(cd.split("\t"))
-    no_newlines = "".join(no_tabs.split("\n"))
-    start = re.sub(r"\s{2,}", "", no_newlines)
+    start = format_code(cd)
 
-    TABS = True
-
-    if TABS:
-        INDENT = "\t"
-    else:
-        INDENT = "  "
-
+    # eventual return string
     formatted = ""
 
     # keeps track of indent level
@@ -82,5 +90,5 @@ def auto_indent(cd):
 if __name__ == "__main__":
     with open("code.txt", "r") as file:
         CODE = file.read()
-    complete = auto_indent("for(var e=0;e<5;e++){console.log(e)}")
+    complete = auto_indent(CODE)
     print(complete)
